@@ -1,6 +1,6 @@
 # LoraHub: Efficient Cross-Task Generalization via Dynamic LoRA Composition
 
-## 실험 및 시각화 구현 코드
+## 실험 및 시각화 구현 코드:
 ### compute_lmc.py
 각 dataset, seed, LoraHub 모듈 조합 별로 linear interpolation coefficient(alpha) 값에 대한 error를 구하고 시각화하는 코드가 구현되어 있음
 
