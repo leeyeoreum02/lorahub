@@ -308,7 +308,6 @@ def visualize_conf_matrix(
     json_path: os.PathLike,
     save_dir: os.PathLike,
     dataset_name: str,
-    scale: int = 1,
 ) -> None:
     with open(json_path, 'r') as f:
         json_data = json.load(f)
@@ -333,7 +332,7 @@ def visualize_conf_matrix(
         height_matrix = np.ones((20, 20)) * -1
         module_id_comb = list(itertools.combinations(range(20), r=2))
         for i in range(len(barrier_height_list)):
-            scaled_height = barrier_height_list[i] * scale
+            scaled_height = barrier_height_list[i]
             col = module_id_comb[i][0]
             row = module_id_comb[i][1]
             height_matrix[col, row] = scaled_height
@@ -347,8 +346,8 @@ def visualize_conf_matrix(
         fig, ax = plt.subplots(figsize=(16, 16))
         ax = sns.heatmap(height_matrix, annot=True, fmt='.3f', cmap='Blues', vmin=0)
         ax.set_title(
-            'lorahub barrier heights X {} (dataset: {}, seed: {}, err_type: {})'.format(
-                scale, dataset_name, seed_num, f'1 - {err_type}' if err_type == 'acc' else err_type
+            'lorahub error barrier heights (dataset: {}, seed: {}, err_type: {})'.format(
+                dataset_name, seed_num, f'1 - {err_type}' if err_type == 'acc' else err_type
             ),
             fontweight='bold'
         )
