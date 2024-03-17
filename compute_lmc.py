@@ -7,6 +7,7 @@ import random
 from typing import Callable, Optional, Sequence
 
 import numpy as np
+import pandas as pd
 import torch
 from tqdm import tqdm
 import matplotlib.pyplot as plt
@@ -338,14 +339,20 @@ def visualize_conf_matrix(
             height_matrix[col, row] = scaled_height
             height_matrix[row, col] = scaled_height
 
-        fig, ax = plt.subplots(figsize=(20, 20)) 
-        ax = sns.heatmap(height_matrix, annot=True, fmt='.3f', cmap='Blues')
-        fig.suptitle(
+        random.seed(seed_num)
+        modules = random.sample(LORA_MODULE_NAMES, 20)
+        comb_id_list = [LORA_MODULE_NAMES.index(m) for m in modules]
+
+        height_matrix = pd.DataFrame(height_matrix, index=comb_id_list, columns=comb_id_list)
+        fig, ax = plt.subplots(figsize=(16, 16))
+        ax = sns.heatmap(height_matrix, annot=True, fmt='.3f', cmap='Blues', vmin=0)
+        ax.set_title(
             'lorahub barrier heights X {} (dataset: {}, seed: {}, err_type: {})'.format(
                 scale, dataset_name, seed_num, f'1 - {err_type}' if err_type == 'acc' else err_type
             ),
             fontweight='bold'
         )
+        fig.tight_layout()
         os.makedirs(os.path.join(save_dir, dataset_name), exist_ok=True)
         save_path = os.path.join(save_dir, dataset_name, f'{err_type}-seed{seed_num}-height_matrix.png')
         plt.savefig(save_path)
