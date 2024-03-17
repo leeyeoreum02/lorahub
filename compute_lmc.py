@@ -36,7 +36,7 @@ def compute_barrier_height(alpha: float, interp_err_list: Sequence[float]) -> fl
     return sup_interp_err - (alpha * net1_err + (1 - alpha) * net2_err)
 
 
-def accuracy_score(outputs, ground_truths):
+def accuracy_score(outputs: Sequence[str], ground_truths: Sequence[str]) -> float:
     correct = 0
     total = 0
     for output, truth in zip(outputs, ground_truths):
