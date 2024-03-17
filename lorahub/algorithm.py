@@ -29,6 +29,7 @@ def load_base_model_and_lora_modules(lora_module_list: List[str], model_name_or_
     # find the base model
     if model_name_or_path is None:
         model_name_or_path = PeftConfig.from_pretrained(default_peft_model_id).base_model_name_or_path
+        # breakpoint()
         
     base_model = AutoModelForSeq2SeqLM.from_pretrained(model_name_or_path)
     # load tokenizer
@@ -163,7 +164,7 @@ def get_score(weights, model, cache, example_dataset, batch_size, get_loss, get_
         
     # minimize the metric
     loss = get_loss(example_dataset, model, batch_size)
-    # L1 regularization term
+    # L1 regularization term (weights are the `lorahub weights`)
     metric_val = loss + get_regular(weights)
     
     return metric_val

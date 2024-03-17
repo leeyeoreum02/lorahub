@@ -53,6 +53,7 @@ def evaluate_lorahub_results_few_shot(folder, flan_model_name):
         example_file_path = os.path.join(folder, sub_dir, "example.jsonl")
         for line in open(example_file_path, "r", encoding="utf-8"):
             example = json.loads(line)
+            # breakpoint()
             example_inputs.append(example["context"])
             examples_outputs.append(example["completion"])
             
@@ -110,9 +111,9 @@ if __name__ == "__main__":
         os.system("wget https://github.com/sail-sg/lorahub/releases/download/0.1/data_bbh.zip")
         # unzip
         os.system("unzip data_bbh.zip")
-    # evaluate the model
-    evaluate_flan_results_zero_shot("data_bbh", "google/flan-t5-large")
-    # five shot for flan models
-    evaluate_flan_results_few_shot("data_bbh", "google/flan-t5-large")
+    # # evaluate the model
+    # evaluate_flan_results_zero_shot("data_bbh", "google/flan-t5-large")
+    # # five shot for flan models
+    # evaluate_flan_results_few_shot("data_bbh", "google/flan-t5-large")
     # five shot for lorahub models
     evaluate_lorahub_results_few_shot("data_bbh", "google/flan-t5-large")
