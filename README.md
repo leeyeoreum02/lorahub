@@ -5,7 +5,7 @@
 각 dataset, seed, LoraHub 모듈 조합 별로 linear interpolation coefficient(alpha) 값에 대한 error를 구하고 시각화하는 코드가 구현되어 있음
     
 - LoraHub 모듈 리스트는 lorahub/constant.py에 기재되어 있음.
-- seed 값을 설정하고, 위에 기재되어 있는 모듈 조합 중 랜덤하게 20개를 골라서, 20개 중 2개를 고르는 조합의 수를 모두 고려하여, linear interpolation coefficient(alpha) 값 변화에 따른 error값을 계산하는 코드가 구현되어 있음
+- seed 값을 설정하고, 모듈 중 랜덤하게 20개를 골라서, 20개 중 2개를 고르는 조합의 수를 모두 고려하여, linear interpolation coefficient(alpha) 값 변화에 따른 error값을 계산하는 코드가 구현되어 있음
 - error로는 cross entropy loss, 1 - accuracy 이렇게 두 개를 설정
 
 ## 실험 실행 스크립트:
