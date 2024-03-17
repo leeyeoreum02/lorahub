@@ -10,7 +10,7 @@
 
 ## 실험 실행 스크립트:
 ### tests/test_compute_lmc.py
-dataset, seed 별로 alpha 값에 따른 error 값을 계산해서 lmc_data 디렉토리에 json으로 저장
+dataset, seed 별로 alpha 값에 따른 error 값을 계산해서 lmc_data/ 디렉토리에 json으로 저장
 ### tests/test_visualize_lmc.py
 각 실험 케이스마다 error barrier height를 계산하고, 오름차순 또는 내림차순으로 정렬하여, 상위 16개를 시각화
 - 오름차순 정렬
