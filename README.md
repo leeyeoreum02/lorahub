@@ -11,7 +11,7 @@
 ### tests/test_compute_lmc.py
 dataset, seed 별로 alpha 값에 따른 error 값을 계산해서 lmc_data/ 디렉토리에 json으로 저장
 ### tests/test_visualize_lmc.py
-각 실험 케이스마다 error barrier height를 계산하고, 오름차순 또는 내림차순으로 정렬하여, 상위 16개를 시각화
+각 실험 케이스마다 error barrier height를 계산하고, 오름차순 또는 내림차순으로 정렬하여, 상위 16개를 시각화 (visualize/ 디렉토리에 저장)
 - 오름차순 정렬
 <figure style="text-align:center">
     <img src="visualize/geometric_shapes/acc-seed1.png">
@@ -23,7 +23,7 @@ dataset, seed 별로 alpha 값에 따른 error 값을 계산해서 lmc_data/ 디
 </figure>
 
 ### tests/test_visualize_height_matrix.py
-각 실험 케이스마다 error barrier height를 계산하고, confusion matrix로 시각화
+각 실험 케이스마다 error barrier height를 계산하고, confusion matrix로 시각화 (visualize/ 디렉토리에 저장)
 <figure style="text-align:center">
     <img src="visualize/geometric_shapes/acc-seed1-height_matrix.png">
 </figure>
