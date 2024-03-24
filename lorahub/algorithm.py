@@ -125,7 +125,7 @@ def default_get_loss(example_dataset, model, batch_size):
     train_loss = 0
     with torch.no_grad():
         device = "cuda" if torch.cuda.is_available() else "cpu"
-        for _, batch in enumerate(train_dataloader):
+        for _, batch in tqdm(list(enumerate(train_dataloader))):
             batch = {k: v.to(device) for k, v in batch.items()}
             with torch.no_grad():
                 outputs = model(**batch)
@@ -219,7 +219,7 @@ def lorahub_inference(example_inputs: List[str],
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model = model.to(device)
 
-    for i in range(0, len(dataset["input"]), batch_size):
+    for i in tqdm(list(range(0, len(dataset["input"]), batch_size))):
         inputs = tokenizer(
             dataset["input"][i : i + batch_size],
             max_length=2048,
@@ -250,7 +250,8 @@ def lorahub_learning(lora_module_list: List[str],
                      batch_size=None,
                      get_loss=default_get_loss, 
                      get_regular=default_l1_regularization,
-                     seed=42):
+                     seed=42,
+                     is_limit: bool = True):
     # set seed for reproducibility
     random.seed(seed)
     numpy.random.seed(seed)
@@ -272,11 +273,15 @@ def lorahub_learning(lora_module_list: List[str],
                                 get_loss=get_loss, 
                                 get_regular=get_regular)
     # set up the limit of the weights
-    instrum = ng.p.Array(
-        init=[0] * number_of_loras,
-        upper=[1.5] * number_of_loras,
-        lower=[-1.5] * number_of_loras,
-    )
+    if is_limit:
+        instrum = ng.p.Array(
+            init=[0] * number_of_loras,
+            upper=[1.5] * number_of_loras,
+            lower=[-1.5] * number_of_loras,
+        )
+    else:
+        instrum = ng.p.Array(init=[0] * number_of_loras)
+
     optimizer = ng.optimizers.NGOpt(parametrization=instrum, budget=max_inference_step)
     print("> Begin to perform gradient-free optimization ...")
     recommendation = optimizer.minimize(get_score_partial, verbosity=1)
